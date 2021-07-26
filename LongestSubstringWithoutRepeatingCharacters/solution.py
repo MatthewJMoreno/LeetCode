@@ -1,8 +1,5 @@
 """
 Given a string s, find the length of the longest substring without repeating characters.
-
-Note* This algorithm doesn't work, because it sets the starter equal to the loop iterator
-what it really should do is move the starter up by 1.
 """
 def lengthOfLongestSubstring(s):
   max_len = 0
