@@ -18,19 +18,15 @@ class Solution:
     
   def isValid(self, s):
     stack = deque()
-    #print(s)
 
     for bracket in s:
-      #print(bracket)
       if bracket in self.left_brackets:
         stack.append(bracket)
       elif len(stack) == 0:
         return False
       else:
         pair = '{}{}'.format(stack.pop(), bracket)
-        #print(pair)
         if pair not in self.valid_pairs:
-          print("The pair {} is not valid".format(pair))
           return False
     
     if len(stack) == 0:
@@ -44,7 +40,6 @@ test_3 = "["
 test_4 = "[(((){[]}))]"
 
 solution = Solution()
-
 
 print(solution.isValid(test_1))
 print(solution.isValid(test_2))
