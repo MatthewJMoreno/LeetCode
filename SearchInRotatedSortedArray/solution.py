@@ -2,6 +2,7 @@ from typing import List
 
 class Solution:
     def find_pivot(self, nums, begin_index, max):
+        print(nums)
         mid = len(nums) // 2
 
         if nums[mid] == max:
@@ -24,9 +25,6 @@ class Solution:
             return self.binary_search(nums[mid:], target, begin_index + len(nums[:mid]))
 
     def search(self, nums: List[int], target: int) -> int:
-        if nums[0] == 1:
-            return self.binary_search(nums, target, 0)
-        
         pivot = self.find_pivot(nums, 0, len(nums))
 
         if nums[0] <= target and target <= nums[pivot]:
@@ -37,15 +35,10 @@ class Solution:
 
 sol = Solution()
 
-test_1 = [1,2,3,4,5]
-test_2 = [2,3,4,5,1]
-test_3 = [3,4,5,1,2]
-test_4 = [4,5,1,2,3]
-test_5 = [5,1,2,3,4]
+test_1 = [-1, 0, 1, 2, 3, 4, -3, -2]
 
-test_6 = [1,2,3,4,5,6,7,8,9,10]
+target_1 = 2
+target_2 = 4
+target_3 = -3
 
-print(sol.search(test_2, 4))
-print(sol.search(test_3, 2))
-print(sol.search(test_4, 5))
-print(sol.search(test_5, 1))
+print(sol.search(test_1, target_1))
