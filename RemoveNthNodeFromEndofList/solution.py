@@ -7,59 +7,90 @@ Example:
 '''
 from ListNode import ListNode
 
-def create_linked_list(n):
-  head = ListNode
+def create_ll(n):
+  head = ListNode()
   cur_node = head
 
   for i in range(n):
-    cur_node.next = ListNode(i)
+    cur_node.next = ListNode(i + 1)
     cur_node = cur_node.next
-  
+
   return head.next
 
-def print_linked_list(ll):
-  output = []
-  head = ll
-
-  if head is None:
+def print_ll(head):
+  if head == None:
     return ''
 
-  while head.next is not None:
-    output.append(str(head.val))
-    output.append(' -> ')
+  string = []
+  string.append(str(head.val))
 
-    head = head.next
-
-  output.append(str(head.val))
-
-  print(''.join(output))
-  
-
-def removeNthFromEnd(head, n):
-  nodes = []
-  cur_node = head
+  cur_node = head.next
 
   while cur_node != None:
-    nodes.append(cur_node)
+    string.append(' -> ')
+    string.append(str(cur_node.val))
     cur_node = cur_node.next
-
-  length = len(nodes)
-
-  if n == length:
-    head = head.next
-  elif n == 1:
-    nodes[length - 2].next = None
-  else:
-    previous_node = nodes[length - n -1]
-    nodes[length - n] = None
-    next_node = nodes[length - n + 1]
-
-    previous_node.next = next_node
-
-  return head
+  
+  return ''.join(string)
 
 
-head = create_linked_list(2)
-print_linked_list(head)
-head = removeNthFromEnd(head, 1)
-print_linked_list(head)
+class Solution:
+  def len_of_ll(self, head):
+    count = 0
+    cur_node = head
+
+    while cur_node != None:
+      count += 1
+      cur_node = cur_node.next
+    
+    return count
+
+  def removeNthFromEnd(self, head, n):
+    ll_len = self.len_of_ll(head)
+    
+    if ll_len == 1:
+      return None
+    
+    if n == ll_len:
+      return head.next
+    
+    num_iters = ll_len - n - 1
+    slow_pointer = head
+    fast_pointer = head.next
+
+    for i in range(num_iters):
+      slow_pointer = slow_pointer.next
+      fast_pointer = fast_pointer.next
+    
+    slow_pointer.next = fast_pointer.next
+    fast_pointer = None
+
+    return head
+
+sol = Solution()
+test_1 = create_ll(1)
+test_2 = create_ll(5)
+test_3 = create_ll(5)
+test_4 = create_ll(2)
+
+print(f'll before: {print_ll(test_1)}')
+test_1_result = sol.removeNthFromEnd(test_1, 1)
+print(f'll after: {print_ll(test_1_result)}')
+
+print()
+
+print(f'll before: {print_ll(test_2)}')
+test_2_result = sol.removeNthFromEnd(test_2, 5)
+print(f'll after: {print_ll(test_2_result)}')
+
+print()
+
+print(f'll before: {print_ll(test_3)}')
+test_3_result = sol.removeNthFromEnd(test_3, 4)
+print(f'll after: {print_ll(test_3_result)}')
+
+print()
+
+print(f'll before: {print_ll(test_4)}')
+test_4_result = sol.removeNthFromEnd(test_4, 2)
+print(f'll after: {print_ll(test_4_result)}')
